@@ -1,5 +1,5 @@
 {
-  "name": "board-sdk",
+  "name": "@digitalcube/board-sdk",
   "private": false,
   "version": "0.1.0",
   "description": "[Unofficial] Board API SDK for JavaScript/TypeScript",
