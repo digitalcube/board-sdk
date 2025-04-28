@@ -42,12 +42,3 @@ export class BoardApiSdk {
     this.projects = new ProjectService(this.client);
   }
 }
-
-/**
- * Board API SDKを作成します
- * @param config API設定
- * @returns BoardApiSdk インスタンス
- */
-export function createBoardApiSdk(config: BoardApiConfig): BoardApiSdk {
-  return new BoardApiSdk(config);
-} 
