@@ -1,6 +1,6 @@
-import fastify from 'fastify';
+import fastify, { FastifyRequest, FastifyReply } from 'fastify';
 import cors from '@fastify/cors';
-import { BoardClient } from '@digitalcube/board-sdk';
+import { BoardApiClient } from '@digitalcube/board-sdk';
 
 const server = fastify();
 server.register(cors, {
@@ -8,15 +8,16 @@ server.register(cors, {
 });
 
 // Board SDKクライアントの初期化
-const boardClient = new BoardClient({
-  apiKey: process.env.BOARD_API_KEY,
+const boardClient = new BoardApiClient({
+  apiKey: process.env.BOARD_API_KEY!,
+  apiToken: process.env.BOARD_API_TOKEN!,
   baseUrl: process.env.BOARD_API_BASE_URL,
 });
 
 // MCP APIエンドポイント
-server.post('/api/mcp/query', async (request, reply) => {
+server.post<{ Body: { query: string } }>('/api/mcp/query', async (request: FastifyRequest<{ Body: { query: string } }>, reply: FastifyReply) => {
   try {
-    const { query } = request.body as { query: string };
+    const { query } = request.body;
     
     // ここでBoard APIを使用してデータを取得し、MCPレスポンスを構築
     // const data = await boardClient.someMethod(query);

@@ -1,19 +1,21 @@
 import { Hono } from 'hono';
-import { BoardClient } from '@digitalcube/board-sdk';
+import type { Context } from 'hono';
+import { BoardApiClient } from '@digitalcube/board-sdk';
 
 const app = new Hono();
 const port = Number(process.env.PORT ?? 3000);
 
 // ヘルスチェックエンドポイント
-app.get('/', (c) => {
+app.get('/', (c: Context) => {
   return c.json({ status: 'ok' });
 });
 
 // Board API SDKを使用するエンドポイント例
-app.get('/api/board', async (c) => {
+app.get('/api/board', async (c: Context) => {
   try {
-    const boardClient = new BoardClient({
-      apiKey: process.env.BOARD_API_KEY,
+    const boardClient = new BoardApiClient({
+      apiKey: process.env.BOARD_API_KEY!,
+      apiToken: process.env.BOARD_API_TOKEN!,
       baseUrl: process.env.BOARD_API_BASE_URL,
     });
     
@@ -32,7 +34,16 @@ app.get('/api/board', async (c) => {
 
 console.log(`Server is running on port ${port}`);
 
-export default {
+// Define the type for the export
+type AppExport = {
+  port: number;
+  fetch: (request: Request, ...args: any[]) => Response | Promise<Response>;
+};
+
+// Assign to a typed variable first
+const serverExport: AppExport = {
   port,
   fetch: app.fetch,
-}; 
+}
+
+export default serverExport; // Export the typed variable
