@@ -52,6 +52,32 @@ npm run build --workspace=@board-sdk/examples
 npm run build --workspace=@board-sdk/mcp
 ```
 
+## パッケージの公開 (`@sdk`)
+
+`@digitalcube/board-sdk` パッケージを npm に公開する手順は以下の通りです。
+
+1.  **バージョンの更新:**
+    `packages/sdk/package.json` ファイルを開き、`"version"` フィールドを適切な新しいバージョン番号に更新します（例: `"0.1.1"`）。
+
+2.  **npm へのログイン (初回または必要時):**
+    ```bash
+    npm login
+    ```
+    ユーザー名、パスワード、メールアドレス、およびワンタイムパスワード（2FAが有効な場合）を入力します。
+
+3.  **パッケージディレクトリへの移動:**
+    ```bash
+    cd packages/sdk
+    ```
+
+4.  **公開の実行:**
+    ```bash
+    npm publish --access public
+    ```
+    公開スコープのパッケージ (`@digitalcube/`) のため、`--access public` が必要です（プライベートパッケージとして公開する場合は不要）。
+
+公開が成功すると、npm レジストリ上でパッケージが利用可能になります。
+
 ## 環境変数
 
 各パッケージで使用する環境変数は、それぞれのパッケージディレクトリに `.env` ファイルを作成して設定します。
