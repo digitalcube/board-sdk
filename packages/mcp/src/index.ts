@@ -3,6 +3,7 @@ import { BoardApiSdk } from '@digitalcube/board-sdk';
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from 'zod';
+import type { ProjectParams } from '@digitalcube/board-sdk'; // 追加
 
 const boardSdk = new BoardApiSdk({
   apiKey: process.env.BACKLOG_API_KEY as string,
@@ -90,6 +91,53 @@ server.tool(
   }
 );
 
+// 特定の顧客IDに紐づくボード (案件) 一覧を取得するツール
+server.tool(
+  'get_board_projects_by_client_id',
+  {
+    clientId: z.number().int().positive().describe('The ID of the client to retrieve projects for'),
+    // ProjectParams に対応する zod スキーマを追加
+    response_group: z.enum(['small', 'medium', 'large']).optional().describe('Level of detail for the response'),
+    status: z.string().optional().describe('Filter projects by status'),
+    // client_id は必須パラメータなのでここでは不要
+    // client_branch_id は ProjectParams に含まれるが、clientId で絞り込んでいるので意味がないかもしれない。一旦含めない。
+    page: z.number().int().positive().optional().describe('Page number for pagination'),
+    per_page: z.number().int().positive().optional().describe('Number of items per page'),
+  },
+  async ({ clientId, ...params }: { clientId: number } & ProjectParams) => { // 型アサーションを修正
+    try {
+      const projects = await boardSdk.projects.getProjectsByClientId(clientId, params);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(projects, null, 2),
+          },
+        ],
+      };
+    } catch (error) {
+      console.error(`Error getting projects for client ${clientId}:`, error);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Error getting projects for client ${clientId}: ${error instanceof Error ? error.message : String(error)}`,
+          },
+        ],
+      };
+    }
+  }
+);
+
+/**
+ * @todo
+ * boardのデータを取得するツールを追加する。
+ * ツールは１API１ツールとして作成する。
+ * ツールの追加は、boardSdk のメソッドを呼び出すようにする。
+ * ツールのパラメーターは、boardSdk のメソッドのパラメーターをそのまま使用する。
+ * ツールの戻り値は、boardSdk のメソッドの戻り値をそのまま使用する。
+ * ツールの戻り値は、JSON 形式とする。
+ */
 
 
 // 他の Board SDK (ProjectService など) の機能をツールとしてここに追加...
