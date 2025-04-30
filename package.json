@@ -1,25 +1,12 @@
 {
-  "name": "@digitalcube/board-sdk",
-  "private": false,
-  "version": "0.1.0",
-  "description": "[Unofficial] Board API SDK for JavaScript/TypeScript",
-  "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
+  "name": "board-sdk-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "prepublishOnly": "npm run build"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "typescript": "~5.7.2",
-    "vite": "^6.3.1"
+    "build": "npm run build --workspaces",
+    "dev": "npm run dev --workspaces"
   },
   "keywords": [
     "board",
@@ -35,8 +22,10 @@
     "url": "https://github.com/digitalcube/board-sdk/issues"
   },
   "homepage": "https://github.com/digitalcube/board-sdk#readme",
+  "devDependencies": {
+    "typescript": "~5.7.2"
+  },
   "dependencies": {
-    "@types/isomorphic-fetch": "^0.0.39",
-    "isomorphic-fetch": "^3.0.0"
+    "@hono/node-server": "^1.14.1"
   }
 }

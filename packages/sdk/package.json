@@ -1,0 +1,43 @@
+{
+  "name": "@digitalcube/board-sdk",
+  "private": false,
+  "version": "0.1.0",
+  "description": "[Unofficial] Board API SDK for JavaScript/TypeScript",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1",
+    "vite-plugin-dts": "^4.5.3"
+  },
+  "keywords": [
+    "board",
+    "api",
+    "sdk"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalcube/board-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digitalcube/board-sdk/issues"
+  },
+  "homepage": "https://github.com/digitalcube/board-sdk#readme",
+  "dependencies": {
+    "@types/isomorphic-fetch": "^0.0.39",
+    "isomorphic-fetch": "^3.0.0"
+  }
+}
