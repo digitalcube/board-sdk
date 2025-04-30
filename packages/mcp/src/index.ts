@@ -6,9 +6,8 @@ import { z } from 'zod';
 import type { ProjectParams } from '@digitalcube/board-sdk'; // 追加
 
 const boardSdk = new BoardApiSdk({
-  apiKey: process.env.BACKLOG_API_KEY as string,
-  apiToken: process.env.BACKLOG_API_TOKEN as string,
-  baseUrl: process.env.BACKLOG_BASE_URL as string,
+  apiKey: process.env.BOARD_API_KEY as string,
+  apiToken: process.env.BOARD_API_TOKEN as string,
 });
 
 /**
@@ -26,13 +25,16 @@ const server = new McpServer({
 server.tool(
   'list_board_projects',
   {
-    // ProjectParams に合わせて zod スキーマを定義 (必要なら)
-    // 例: limit: z.number().optional(), offset: z.number().optional(), etc.
+    per_page: z.number().default(100).optional(),
+    page: z.number().default(1).optional(),
   },
-  async (/* params */) => {
+  async ({ per_page, page }: { per_page?: number, page?: number }) => {
     try {
       // boardSdk.projects を使用してメソッドを呼び出す
-      const projects = await boardSdk.projects.getProjects(/* params */);
+      const projects = await boardSdk.projects.getProjects({
+        per_page: per_page,
+        page: page,
+      });
       return {
         content: [
           {

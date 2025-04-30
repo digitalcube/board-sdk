@@ -6,6 +6,9 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "board-mcp": "./build/index.js"
+  },
   "scripts": {
     "dev": "tsx src/index.ts --watch",
     "build": "tsc",

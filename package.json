@@ -24,5 +24,8 @@
   "homepage": "https://github.com/digitalcube/board-sdk#readme",
   "devDependencies": {
     "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.1"
   }
 }
