@@ -12,14 +12,19 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'BoardSdk',
-      fileName: 'index'
+      fileName: 'index',
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       output: {
-        exports: 'named'
-      }
+        exports: 'named',
+        globals: {
+          'isomorphic-fetch': 'isomorphicFetch'
+        }
+      },
+      external: ['isomorphic-fetch']
     },
     sourcemap: true,
-    target: 'es2020'
+    target: 'node16'
   }
 }) 

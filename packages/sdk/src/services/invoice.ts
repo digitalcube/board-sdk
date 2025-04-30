@@ -7,7 +7,7 @@ import type {
   InvoiceStatusValue,
   OrderStatusValue
 } from '../types.js';
-import { InvoiceStatus, OrderStatus } from '../types.js';
+import { InvoiceStatus } from '../types.js';
 
 export class InvoiceService {
   private client: BoardApiClient;

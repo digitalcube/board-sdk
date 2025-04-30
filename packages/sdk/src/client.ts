@@ -34,7 +34,9 @@ export class BoardApiClient {
       url = `${url}?${params.toString()}`;
     }
 
-    const headers: HeadersInit = {
+    const headers: {
+      [key: string]: string;
+    } = {
       'x-api-key': this.apiKey,
       'Authorization': `Bearer ${this.apiToken}`,
     };

@@ -8,7 +8,7 @@ import type {
   PaymentStatusValue,
   ExpenditureStatusValue
 } from '../types.js';
-import { PaymentStatus, ExpenditureStatus } from '../types.js';
+import { PaymentStatus } from '../types.js';
 
 export class ExpenditurePaymentService {
   private client: BoardApiClient;
