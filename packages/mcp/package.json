@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx src/index.ts --watch",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -21,8 +21,9 @@
   "license": "MIT",
   "dependencies": {
     "@digitalcube/board-sdk": "0.1.0",
-    "fastify": "^4.24.0",
-    "@fastify/cors": "^8.4.0"
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
