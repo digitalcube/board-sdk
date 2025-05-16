@@ -29,7 +29,9 @@ export class BoardApiClient {
     if (queryParams && Object.keys(queryParams).length > 0) {
       const params = new URLSearchParams();
       Object.entries(queryParams).forEach(([key, value]) => {
-        params.append(key, value.toString());
+        if (value !== undefined && value !== null) {
+          params.append(key, value.toString());
+        }
       });
       url = `${url}?${params.toString()}`;
     }
