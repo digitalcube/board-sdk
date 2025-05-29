@@ -26,14 +26,7 @@ import {
   ClientUpdateParamsSchema,
   ClientBranchParamsSchema,
   ClientBranchCreateParamsSchema,
-  ClientBranchUpdateParamsSchema,
-  ProjectParamsSchema,
-  ProjectCreateParamsSchema,
-  ProjectUpdateParamsSchema,
-  InvoiceParamsSchema,
-  ExpenditurePaymentParamsSchema,
-  PaymentStatusUpdateParamsSchema,
-  PaymentLockUpdateParamsSchema
+  ClientBranchUpdateParamsSchema
 } from './types.js';
 
 const boardSdk = new BoardApiSdk({
@@ -273,7 +266,16 @@ server.tool(
   {
     projectId: z.number().int().positive().describe('案件ID'),
     // ProjectUpdateParamsに対応するzodスキーマ
-    data: ProjectUpdateParamsSchema.describe('更新データ')
+    data: z.object({
+      name: z.string().min(1).optional(),
+      code: z.string().optional(),
+      status: z.string().min(1).optional(),
+      client_id: z.number().int().positive().optional(),
+      client_branch_id: z.number().int().positive().optional(),
+      start_date: z.string().optional(),
+      end_date: z.string().optional(),
+      description: z.string().optional()
+    }).describe('更新データ')
   },
   async ({ projectId, data }: { projectId: number, data: ProjectUpdateParams }) => {
     try {

@@ -6,11 +6,8 @@ import type {
   ClientBranchParams,
   ClientBranchCreateParams,
   ClientBranchUpdateParams,
-  ProjectParams,
   ProjectCreateParams,
-  ProjectUpdateParams,
-  InvoiceParams,
-  ExpenditurePaymentParams
+  ProjectUpdateParams
 } from '@digitalcube/board-sdk';
 
 export const ClientParamsSchema = z.object({
@@ -80,15 +77,6 @@ export const ClientBranchUpdateParamsSchema = z.object({
   archive_flg: z.boolean().optional()
 });
 
-export const ProjectParamsSchema = z.object({
-  page: z.number().int().positive().optional(),
-  per_page: z.number().int().positive().optional(),
-  response_group: z.enum(['small', 'medium', 'large']).optional(),
-  status: z.string().optional(),
-  client_id: z.number().int().positive().optional(),
-  client_branch_id: z.number().int().positive().optional()
-});
-
 export const ProjectCreateParamsSchema = z.object({
   name: z.string().min(1),
   code: z.string().optional(),
@@ -111,44 +99,6 @@ export const ProjectUpdateParamsSchema = z.object({
   description: z.string().optional()
 });
 
-export const InvoiceParamsSchema = z.object({
-  page: z.number().int().positive().optional(),
-  per_page: z.number().int().positive().optional(),
-  invoice_date_gteq: z.string().optional(),
-  invoice_date_lteq: z.string().optional(),
-  invoice_payment_limit_date_gteq: z.string().optional(),
-  invoice_payment_limit_date_lteq: z.string().optional(),
-  project_order_status_in: z.string().optional(),
-  invoice_status_in: z.string().optional(),
-  project_project_no_eq: z.number().int().positive().optional(),
-  updated_at_gteq: z.string().optional(),
-  updated_at_lteq: z.string().optional(),
-  response_group: z.enum(['small', 'medium', 'large', 'invoice', 'all']).optional()
-});
-
 export const InvoiceStatusUpdateParamsSchema = z.object({
   invoice_status: z.number().int().positive()
-});
-
-export const ExpenditurePaymentParamsSchema = z.object({
-  page: z.number().int().positive().optional(),
-  per_page: z.number().int().positive().optional(),
-  invoice_date_gteq: z.string().optional(),
-  invoice_date_lteq: z.string().optional(),
-  payment_date_gteq: z.string().optional(),
-  payment_date_lteq: z.string().optional(),
-  expenditure_expenditure_status_in: z.string().optional(),
-  payment_status_in: z.string().optional(),
-  expenditure_expenditure_no_eq: z.number().int().positive().optional(),
-  updated_at_gteq: z.string().optional(),
-  updated_at_lteq: z.string().optional(),
-  response_group: z.enum(['small', 'medium', 'large', 'invoice', 'all']).optional()
-});
-
-export const PaymentStatusUpdateParamsSchema = z.object({
-  payment_status: z.number().int().positive()
-});
-
-export const PaymentLockUpdateParamsSchema = z.object({
-  lock_flg: z.union([z.literal(0), z.literal(1)])
 });
