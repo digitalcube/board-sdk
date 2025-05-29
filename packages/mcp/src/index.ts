@@ -55,7 +55,7 @@ const server = new McpServer({
 
 // 案件一覧を取得するツール
 server.tool(
-  'get_projects',
+  'get_board_projects',
   {
     // ProjectParamsに対応するzodスキーマ
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -92,7 +92,7 @@ server.tool(
 
 // 特定の案件情報を取得するツール
 server.tool(
-  'get_project',
+  'get_board_project',
   {
     projectId: z.number().int().positive().describe('案件ID'),
     responseGroup: z.enum(['small', 'medium', 'large']).optional().describe('レスポンスの詳細度')
@@ -124,7 +124,7 @@ server.tool(
 
 // 特定の顧客IDに紐づく案件一覧を取得するツール
 server.tool(
-  'get_projects_by_client_id',
+  'get_board_projects_by_client_id',
   {
     clientId: z.number().int().positive().describe('顧客ID'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -159,7 +159,7 @@ server.tool(
 
 // 特定の顧客支社IDに紐づく案件一覧を取得するツール
 server.tool(
-  'get_projects_by_client_branch_id',
+  'get_board_projects_by_client_branch_id',
   {
     clientBranchId: z.number().int().positive().describe('顧客支社ID'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -193,7 +193,7 @@ server.tool(
 );
 
 server.tool(
-  'create_project',
+  'create_board_project',
   {
     // ProjectCreateParamsに対応するzodスキーマ
     name: z.string().min(1).describe('案件名'),
@@ -231,7 +231,7 @@ server.tool(
 );
 
 server.tool(
-  'create_project_for_client',
+  'create_board_project_for_client',
   {
     clientId: z.number().int().positive().describe('顧客ID'),
     // ProjectCreateParamsからclient_idを除いたzodスキーマ
@@ -269,7 +269,7 @@ server.tool(
 );
 
 server.tool(
-  'update_project',
+  'update_board_project',
   {
     projectId: z.number().int().positive().describe('案件ID'),
     // ProjectUpdateParamsに対応するzodスキーマ
@@ -301,7 +301,7 @@ server.tool(
 );
 
 server.tool(
-  'update_project_status',
+  'update_board_project_status',
   {
     projectId: z.number().int().positive().describe('案件ID'),
     status: z.string().min(1).describe('新しいステータス')
@@ -332,7 +332,7 @@ server.tool(
 );
 
 server.tool(
-  'delete_project',
+  'delete_board_project',
   {
     projectId: z.number().int().positive().describe('案件ID')
   },
@@ -368,7 +368,7 @@ server.tool(
 
 // 請求書一覧を取得するツール
 server.tool(
-  'get_invoices',
+  'get_board_invoices',
   {
     // InvoiceParamsに対応するzodスキーマ
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -411,7 +411,7 @@ server.tool(
 
 // 特定の案件IDに紐づく請求書一覧を取得するツール
 server.tool(
-  'get_invoices_by_project_id',
+  'get_board_invoices_by_project_id',
   {
     projectId: z.number().int().positive().describe('案件ID'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -445,7 +445,7 @@ server.tool(
 
 // 請求日の範囲で請求書一覧を取得するツール
 server.tool(
-  'get_invoices_by_date_range',
+  'get_board_invoices_by_date_range',
   {
     startDate: z.string().describe('請求日の開始日（YYYY-MM-DD形式）'),
     endDate: z.string().describe('請求日の終了日（YYYY-MM-DD形式）'),
@@ -480,7 +480,7 @@ server.tool(
 
 // 支払期限日の範囲で請求書一覧を取得するツール
 server.tool(
-  'get_invoices_by_payment_limit_date_range',
+  'get_board_invoices_by_payment_limit_date_range',
   {
     startDate: z.string().describe('支払期限日の開始日（YYYY-MM-DD形式）'),
     endDate: z.string().describe('支払期限日の終了日（YYYY-MM-DD形式）'),
@@ -515,7 +515,7 @@ server.tool(
 
 // 請求書ステータスで請求書一覧を取得するツール
 server.tool(
-  'get_invoices_by_status',
+  'get_board_invoices_by_status',
   {
     invoice_status_in: z.string().describe('請求書ステータス（カンマ区切りの複数指定可）'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -554,7 +554,7 @@ server.tool(
 
 // 発注ステータスで請求書一覧を取得するツール
 server.tool(
-  'get_invoices_by_order_status',
+  'get_board_invoices_by_order_status',
   {
     project_order_status_in: z.string().describe('発注ステータス（カンマ区切りの複数指定可）'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -593,7 +593,7 @@ server.tool(
 
 // 未払いの請求書一覧を取得するツール
 server.tool(
-  'get_unpaid_invoices',
+  'get_board_unpaid_invoices',
   {
     page: z.number().int().positive().optional().describe('ページ番号'),
     per_page: z.number().int().positive().optional().describe('1ページあたりの件数'),
@@ -625,7 +625,7 @@ server.tool(
 );
 
 server.tool(
-  'update_invoice_status',
+  'update_board_invoice_status',
   {
     invoice_id: z.number().int().positive().describe('請求書ID'),
     invoice_status: z.number().int().positive().describe('新しい請求書ステータス')
@@ -661,7 +661,7 @@ server.tool(
 
 // 支払一覧を取得するツール
 server.tool(
-  'get_expenditure_payments',
+  'get_board_expenditure_payments',
   {
     // ExpenditurePaymentParamsに対応するzodスキーマ
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -704,7 +704,7 @@ server.tool(
 
 // 特定の支出IDに紐づく支払一覧を取得するツール
 server.tool(
-  'get_expenditure_payments_by_expenditure_id',
+  'get_board_expenditure_payments_by_expenditure_id',
   {
     expenditureId: z.number().int().positive().describe('支出ID'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -738,7 +738,7 @@ server.tool(
 
 // 請求日の範囲で支払一覧を取得するツール
 server.tool(
-  'get_expenditure_payments_by_invoice_date_range',
+  'get_board_expenditure_payments_by_invoice_date_range',
   {
     startDate: z.string().describe('請求日の開始日（YYYY-MM-DD形式）'),
     endDate: z.string().describe('請求日の終了日（YYYY-MM-DD形式）'),
@@ -773,7 +773,7 @@ server.tool(
 
 // 支払日の範囲で支払一覧を取得するツール
 server.tool(
-  'get_expenditure_payments_by_payment_date_range',
+  'get_board_expenditure_payments_by_payment_date_range',
   {
     startDate: z.string().describe('支払日の開始日（YYYY-MM-DD形式）'),
     endDate: z.string().describe('支払日の終了日（YYYY-MM-DD形式）'),
@@ -808,7 +808,7 @@ server.tool(
 
 // 支払ステータスで支払一覧を取得するツール
 server.tool(
-  'get_expenditure_payments_by_payment_status',
+  'get_board_expenditure_payments_by_payment_status',
   {
     payment_status_in: z.string().describe('支払ステータス（カンマ区切りの複数指定可）'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -847,7 +847,7 @@ server.tool(
 
 // 支出ステータスで支払一覧を取得するツール
 server.tool(
-  'get_expenditure_payments_by_expenditure_status',
+  'get_board_expenditure_payments_by_expenditure_status',
   {
     expenditure_expenditure_status_in: z.string().describe('支出ステータス（カンマ区切りの複数指定可）'),
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -886,7 +886,7 @@ server.tool(
 
 // 請求書未受領の支払一覧を取得するツール
 server.tool(
-  'get_invoice_not_received_payments',
+  'get_board_invoice_not_received_payments',
   {
     page: z.number().int().positive().optional().describe('ページ番号'),
     per_page: z.number().int().positive().optional().describe('1ページあたりの件数'),
@@ -919,7 +919,7 @@ server.tool(
 
 // 請求書受領済みの支払一覧を取得するツール
 server.tool(
-  'get_invoice_received_payments',
+  'get_board_invoice_received_payments',
   {
     page: z.number().int().positive().optional().describe('ページ番号'),
     per_page: z.number().int().positive().optional().describe('1ページあたりの件数'),
@@ -952,7 +952,7 @@ server.tool(
 
 // 支払済みの支払一覧を取得するツール
 server.tool(
-  'get_paid_payments',
+  'get_board_paid_payments',
   {
     page: z.number().int().positive().optional().describe('ページ番号'),
     per_page: z.number().int().positive().optional().describe('1ページあたりの件数'),
@@ -984,7 +984,7 @@ server.tool(
 );
 
 server.tool(
-  'update_payment_status',
+  'update_board_payment_status',
   {
     paymentId: z.number().int().positive().describe('支払ID'),
     payment_status: z.number().int().positive().describe('新しい支払ステータス')
@@ -1016,7 +1016,7 @@ server.tool(
 );
 
 server.tool(
-  'update_payment_lock',
+  'update_board_payment_lock',
   {
     paymentId: z.number().int().positive().describe('支払ID'),
     lock_flg: z.union([z.literal(0), z.literal(1)]).describe('ロックフラグ（0: ロック解除, 1: ロック）')
@@ -1059,7 +1059,7 @@ server.tool(
 
 // 顧客一覧を取得するツール
 server.tool(
-  'get_clients',
+  'get_board_clients',
   {
     // ClientParamsに対応するzodスキーマ
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -1093,7 +1093,7 @@ server.tool(
 );
 
 server.tool(
-  'get_client',
+  'get_board_client',
   {
     clientId: z.number().int().positive().describe('顧客ID'),
     responseGroup: z.enum(['small', 'medium', 'large']).optional().describe('レスポンスの詳細度')
@@ -1124,7 +1124,7 @@ server.tool(
 );
 
 server.tool(
-  'create_client',
+  'create_board_client',
   {
     // ClientCreateParamsに対応するzodスキーマ
     name: z.string().min(1).describe('顧客名'),
@@ -1165,7 +1165,7 @@ server.tool(
 );
 
 server.tool(
-  'update_client',
+  'update_board_client',
   {
     clientId: z.number().int().positive().describe('顧客ID'),
     // ClientUpdateParamsに対応するzodスキーマ
@@ -1197,7 +1197,7 @@ server.tool(
 );
 
 server.tool(
-  'delete_client',
+  'delete_board_client',
   {
     clientId: z.number().int().positive().describe('顧客ID')
   },
@@ -1230,7 +1230,7 @@ server.tool(
 );
 
 server.tool(
-  'archive_client',
+  'archive_board_client',
   {
     clientId: z.number().int().positive().describe('顧客ID')
   },
@@ -1260,7 +1260,7 @@ server.tool(
 );
 
 server.tool(
-  'unarchive_client',
+  'unarchive_board_client',
   {
     clientId: z.number().int().positive().describe('顧客ID')
   },
@@ -1292,7 +1292,7 @@ server.tool(
 
 // 顧客支社一覧を取得するツール
 server.tool(
-  'get_client_branches',
+  'get_board_client_branches',
   {
     // ClientBranchParamsに対応するzodスキーマ
     page: z.number().int().positive().optional().describe('ページ番号'),
@@ -1326,7 +1326,7 @@ server.tool(
 );
 
 server.tool(
-  'get_client_branch',
+  'get_board_client_branch',
   {
     clientBranchId: z.number().int().positive().describe('顧客支社ID'),
     responseGroup: z.enum(['small', 'medium', 'large']).optional().describe('レスポンスの詳細度')
@@ -1358,7 +1358,7 @@ server.tool(
 
 // 顧客IDに紐づく顧客支社一覧を取得するツール
 server.tool(
-  'get_client_branches_by_client_id',
+  'get_board_client_branches_by_client_id',
   {
     clientId: z.number().int().positive().describe('顧客ID'),
     // ClientBranchParamsに対応するzodスキーマ
@@ -1393,7 +1393,7 @@ server.tool(
 );
 
 server.tool(
-  'create_client_branch',
+  'create_board_client_branch',
   {
     // ClientBranchCreateParamsに対応するzodスキーマ
     client_id: z.number().int().positive().describe('顧客ID'),
@@ -1432,7 +1432,7 @@ server.tool(
 );
 
 server.tool(
-  'create_client_branch_for_client',
+  'create_board_client_branch_for_client',
   {
     clientId: z.number().int().positive().describe('顧客ID'),
     // ClientBranchCreateParamsからclient_idを除いたzodスキーマ
@@ -1471,7 +1471,7 @@ server.tool(
 );
 
 server.tool(
-  'update_client_branch',
+  'update_board_client_branch',
   {
     clientBranchId: z.number().int().positive().describe('顧客支社ID'),
     // ClientBranchUpdateParamsに対応するzodスキーマ
@@ -1503,7 +1503,7 @@ server.tool(
 );
 
 server.tool(
-  'delete_client_branch',
+  'delete_board_client_branch',
   {
     clientBranchId: z.number().int().positive().describe('顧客支社ID')
   },
@@ -1536,7 +1536,7 @@ server.tool(
 );
 
 server.tool(
-  'archive_client_branch',
+  'archive_board_client_branch',
   {
     clientBranchId: z.number().int().positive().describe('顧客支社ID')
   },
@@ -1566,7 +1566,7 @@ server.tool(
 );
 
 server.tool(
-  'unarchive_client_branch',
+  'unarchive_board_client_branch',
   {
     clientBranchId: z.number().int().positive().describe('顧客支社ID')
   },
